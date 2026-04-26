@@ -15,6 +15,31 @@
 
 ---
 
+## The problem
+
+Your team adopted AI tools in the last 12 months. Work moves faster. So why does the brief still arrive incomplete at engineering? Why does scope shift mid-sprint? Why has no one reviewed the metrics 30 days after the last release?
+
+AI accelerates the shuttle. Without a warp — stable structure, clear handoffs, named owners — it accelerates the tangle, not the fabric.
+
+**ORDITO is the warp.**
+
+---
+
+## Start in one afternoon
+
+If you can do only one thing: change how you write tickets.
+
+Every Feature Request needs three things before it moves forward:
+1. **A specific problem** — not "users want X" but "enterprise admins spend 3h/week on Y because Z"
+2. **A measurable outcome** — not "better UX" but "reduce onboarding time below 2 days"
+3. **At least 3 acceptance criteria** — in given/when/then format
+
+That's 20% of ORDITO. It produces 80% of the value. Start there.
+
+When that feels natural, add the next layer. The [30/60/90 plan](07-adoption/30-60-90.md) shows you exactly how.
+
+---
+
 ## What is ORDITO
 
 The name comes from the Italian word for **warp** — the longitudinal threads held under tension in a loom while the **weft** passes through them to create fabric. Without a tense, regular warp, every pass of the weft produces tangle instead of pattern.
@@ -89,6 +114,7 @@ ordito/
 ├── 05-playbooks/          # Variants for Core / Explore / Scale / Hotfix
 ├── 06-workflows/          # Mermaid diagrams of processes and swimlanes
 ├── 07-adoption/           # Onboarding, antipatterns, change management
+├── 08-integrations/       # Tool-specific integration guides (Jira, Linear, Notion)
 └── schemas/               # Machine-readable JSON Schemas
 ```
 
@@ -109,9 +135,10 @@ ordito/
 
 - [x] v1.1 — Manifesto, schema, swimlane Core, end-to-end example
 - [x] v1.2 — Principles, roles, rituals, 30/60/90 plan, unified swimlanes, 12 AI services (registry + governance), all examples
-- [ ] v1.3 — Prompt templates for all 12 AI services + plugin pack for Jira, Linear, Notion
-- [ ] v1.4 — Reference harness for AI services (runnable integrations)
-- [ ] v1.5 — Case studies from adopting teams
+- [x] v1.3 — Prompt templates for 7 core AI services + Jira integration guide
+- [ ] v1.4 — Remaining 5 prompt templates (research-synthesizer, solution-mapper, dashboard-narrator, dependency-mapper, compliance-checker)
+- [ ] v1.5 — Plugin pack for Linear and Notion + reference harness for AI services
+- [ ] v1.6 — Case studies from adopting teams
 
 ## License
 
