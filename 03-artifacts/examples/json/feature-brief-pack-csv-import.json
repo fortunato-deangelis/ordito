@@ -1,0 +1,83 @@
+{
+  "artifact_id": "BRIEF-2026-067",
+  "artifact_type": "feature_brief_pack",
+  "owner_role": "product_lead",
+  "status": "ready_for_g1",
+  "gate_stage": "G1",
+  "objective": "Define the Feature Brief Pack for CSV bulk import, covering hypothesis, ACs, scope, risks, and tracking plan for the enterprise CSV import initiative.",
+  "last_reviewed_at": "2026-03-15T00:00:00Z",
+  "upstream_refs": ["INIT-2026-014", "FRQ-2026-103"],
+  "downstream_refs": [],
+  "constraints": [
+    "Compliance with electronic invoicing regulations",
+    "UTF-8 and Windows-1252 encoding support",
+    "Files up to 50MB / 50,000 rows",
+    "Partial errors: partial import + error report"
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "given": "Admin with valid 10k-row CSV file",
+      "when": "Uploads the file",
+      "then": "Preview of first 100 rows within 5s, suggested column mapping"
+    },
+    {
+      "id": "AC2",
+      "given": "File with 1 invalid row out of 100 (wrong tax ID)",
+      "when": "Confirms import",
+      "then": "99 invoices imported, 1 error in downloadable report, no total rollback"
+    },
+    {
+      "id": "AC3",
+      "given": "File with unsupported encoding",
+      "when": "Uploads the file",
+      "then": "Explicit error with conversion suggestion, no upload"
+    }
+  ],
+  "risk_band": "medium",
+  "telemetry_plan": {
+    "events": [
+      "csv_import_started",
+      "csv_import_preview_shown",
+      "csv_import_completed",
+      "csv_import_error_partial",
+      "csv_import_error_total"
+    ],
+    "kpis": [
+      {
+        "name": "import_success_rate",
+        "baseline": "0%",
+        "target": ">95%",
+        "measurement": "per import session"
+      },
+      {
+        "name": "avg_import_time_per_1k_rows",
+        "baseline": null,
+        "target": "<5s",
+        "measurement": "server-side timing"
+      },
+      {
+        "name": "error_rate_by_validation_type",
+        "baseline": null,
+        "target": null,
+        "measurement": "breakdown by error code"
+      }
+    ]
+  },
+  "decision_log": [],
+  "ai_services_used": [
+    {
+      "service_name": "brief-builder",
+      "invoked_at": "2026-03-10T09:00:00Z",
+      "model_used": "claude-sonnet-4-6",
+      "human_reviewer": "product_lead"
+    },
+    {
+      "service_name": "research-synthesizer",
+      "invoked_at": "2026-03-10T09:30:00Z",
+      "model_used": "claude-sonnet-4-6",
+      "human_reviewer": "product_lead"
+    }
+  ],
+  "tags": ["enterprise", "csv-import", "core-mode", "q3-2026"]
+}

@@ -1,0 +1,35 @@
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Editors
+.vscode/
+.idea/
+*.iml
+
+# Node (for validation tools)
+node_modules/
+package-lock.json
+
+# Python (for any future tooling)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Build/test outputs
+*.log
+.cache/
+dist/
+build/
+
+# Temp files
+*.tmp
+*.bak
+~*
+
+# Local config
+.env
+.env.local

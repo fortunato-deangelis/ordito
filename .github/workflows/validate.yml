@@ -1,0 +1,60 @@
+name: Validate Schemas
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'schemas/**'
+      - '03-artifacts/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'schemas/**'
+      - '03-artifacts/**'
+
+jobs:
+  validate-json-schemas:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install validator
+        run: npm install -g ajv-cli ajv-formats
+
+      - name: Validate JSON Schema syntax
+        run: |
+          for schema in schemas/*.json; do
+            echo "Validating syntax: $schema"
+            ajv compile --spec=draft2020 -c ajv-formats -s "$schema" --strict=false || exit 1
+          done
+
+      - name: Validate example artifacts against schema
+        run: |
+          shopt -s nullglob
+          examples=(03-artifacts/examples/json/*.json)
+          if [ ${#examples[@]} -eq 0 ]; then
+            echo "ERROR: No JSON examples found in 03-artifacts/examples/json/ — at least one conformant example is required (Principle #8)."
+            exit 1
+          fi
+          for example in "${examples[@]}"; do
+            echo "Validating: $example"
+            ajv validate --spec=draft2020 -c ajv-formats -s schemas/artifact.schema.json -d "$example" --strict=false || exit 1
+          done
+
+  lint-markdown:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Lint markdown files
+        uses: DavidAnson/markdownlint-cli2-action@v15
+        with:
+          globs: '**/*.md'
+          config: '.markdownlint.json'

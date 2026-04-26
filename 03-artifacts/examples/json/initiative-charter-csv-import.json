@@ -1,0 +1,36 @@
+{
+  "artifact_id": "INIT-2026-014",
+  "artifact_type": "initiative_charter",
+  "owner_role": "sponsor",
+  "status": "approved",
+  "gate_stage": "G0",
+  "objective": "Allow enterprise customers to bulk-import invoices from CSV to reduce onboarding time and stop churn of at-risk accounts.",
+  "last_reviewed_at": "2026-03-06T00:00:00Z",
+  "upstream_refs": [],
+  "downstream_refs": ["FRQ-2026-103"],
+  "constraints": [
+    "Compliance with electronic invoicing regulations",
+    "No regressions on existing single-invoice flow",
+    "Budget: 2 dev sprints, 0.5 design sprint"
+  ],
+  "risk_band": "medium",
+  "telemetry_plan": {
+    "kpis": [
+      {
+        "name": "Enterprise onboarding time",
+        "baseline": "42 days",
+        "target": "14 days",
+        "measurement": "30-day rolling average post-release"
+      },
+      {
+        "name": "Enterprise churn rate (>$50k ARR)",
+        "baseline": "8%",
+        "target": "<4%",
+        "measurement": "quarterly"
+      }
+    ]
+  },
+  "decision_log": [],
+  "ai_services_used": [],
+  "tags": ["enterprise", "csv-import", "q3-2026", "core-mode"]
+}

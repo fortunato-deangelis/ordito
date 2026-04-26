@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 General questions
+    url: https://github.com/fortunato-deangelis/ordito/discussions
+    about: For questions, ideas, and open discussion, use GitHub Discussions instead of Issues.
+  - name: 📖 Documentation
+    url: https://github.com/fortunato-deangelis/ordito#readme
+    about: Have you read the README, MANIFESTO, and the end-to-end example? Often the answer is already there.
