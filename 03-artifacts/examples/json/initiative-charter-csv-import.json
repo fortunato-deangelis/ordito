@@ -2,6 +2,7 @@
   "artifact_id": "INIT-2026-014",
   "artifact_type": "initiative_charter",
   "owner_role": "sponsor",
+  "mode": "core",
   "status": "approved",
   "gate_stage": "G0",
   "objective": "Allow enterprise customers to bulk-import invoices from CSV to reduce onboarding time and stop churn of at-risk accounts.",

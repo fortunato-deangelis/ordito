@@ -12,6 +12,7 @@ Thumbs.db
 # Node (for validation tools)
 node_modules/
 package-lock.json
+!tools/ordito-cli/package-lock.json
 
 # Python (for any future tooling)
 __pycache__/

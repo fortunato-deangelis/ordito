@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordito.dev/schemas/ai-service-registry.schema.json",
+  "title": "ORDITO AI Service Registry",
+  "description": "Machine-readable contract for the ORDITO AI service registry.",
+  "type": "object",
+  "required": [
+    "version",
+    "last_updated",
+    "services",
+    "retention_policy_definitions",
+    "output_visibility_definitions",
+    "autonomy_tier_definitions",
+    "ai_act_risk_definitions"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date"
+    },
+    "services": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "canonical_id",
+          "description",
+          "invocation_phase",
+          "input_artifacts",
+          "output_artifacts",
+          "recommended_model",
+          "retention_policy",
+          "output_visibility",
+          "pii_risk",
+          "autonomy_tier",
+          "ai_act_risk",
+          "dpa_required",
+          "prompt_file",
+          "prompt_version",
+          "last_prompt_update"
+        ],
+        "properties": {
+          "name": { "$ref": "#/$defs/service_name" },
+          "canonical_id": { "$ref": "#/$defs/service_name" },
+          "description": { "type": "string", "minLength": 30 },
+          "invocation_phase": {
+            "type": "string",
+            "enum": [
+              "1-intake",
+              "2-prioritization",
+              "3-discovery",
+              "4-solution-design",
+              "5-build",
+              "6-validate",
+              "8-learn",
+              "gate-time"
+            ]
+          },
+          "input_artifacts": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/artifact_type" }
+          },
+          "output_artifacts": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/artifact_type" }
+          },
+          "recommended_model": { "type": "string", "minLength": 3 },
+          "alternative_model": { "type": "string", "minLength": 3 },
+          "retention_policy": {
+            "type": "string",
+            "enum": ["session-only", "sprint", "release-cycle", "90-days", "audit-trail"]
+          },
+          "output_visibility": {
+            "type": "string",
+            "enum": ["internal-team", "compliance-team"]
+          },
+          "pii_risk": {
+            "type": "string",
+            "enum": ["low", "medium", "high"]
+          },
+          "autonomy_tier": {
+            "type": "string",
+            "enum": ["HITL", "HOTL", "HOOTL"]
+          },
+          "ai_act_risk": {
+            "type": "string",
+            "enum": ["limited", "high", "minimal"]
+          },
+          "dpa_required": { "type": "boolean" },
+          "prompt_file": {
+            "type": "string",
+            "pattern": "^prompts\\/[a-z0-9-]+\\.md$"
+          },
+          "prompt_version": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+(\\.\\d+)?$"
+          },
+          "last_prompt_update": {
+            "type": "string",
+            "format": "date"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "retention_policy_definitions": {
+      "type": "object",
+      "required": ["session-only", "sprint", "release-cycle", "90-days", "audit-trail"],
+      "additionalProperties": { "type": "string" }
+    },
+    "output_visibility_definitions": {
+      "type": "object",
+      "required": ["internal-team", "compliance-team"],
+      "additionalProperties": { "type": "string" }
+    },
+    "autonomy_tier_definitions": {
+      "type": "object",
+      "required": ["HITL", "HOTL", "HOOTL"],
+      "additionalProperties": { "type": "string" }
+    },
+    "ai_act_risk_definitions": {
+      "type": "object",
+      "required": ["limited", "high", "minimal"],
+      "additionalProperties": { "type": "string" }
+    }
+  },
+  "$defs": {
+    "artifact_type": {
+      "type": "string",
+      "enum": [
+        "initiative_charter",
+        "feature_request",
+        "feature_brief_pack",
+        "design_spec",
+        "technical_design_note",
+        "tracking_plan",
+        "release_checklist",
+        "impact_review",
+        "opportunity_brief",
+        "exploration_report",
+        "mvp_frame",
+        "mvp_decision_review"
+      ]
+    },
+    "service_name": {
+      "type": "string",
+      "enum": [
+        "intake-coach",
+        "prioritization-copilot",
+        "brief-builder",
+        "research-synthesizer",
+        "design-critic",
+        "solution-mapper",
+        "code-review-agent",
+        "test-case-generator",
+        "release-verifier",
+        "dashboard-narrator",
+        "dependency-mapper",
+        "compliance-checker",
+        "consistency-checker"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

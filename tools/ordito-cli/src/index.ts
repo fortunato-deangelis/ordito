@@ -2,6 +2,7 @@
 import { newArtifact } from "./commands/new.js";
 import { validateArtifacts } from "./commands/validate.js";
 import { runGate } from "./commands/gate.js";
+import { runEval } from "./commands/eval.js";
 import { exportFromJira } from "./commands/export-from-jira.js";
 
 const HELP = `ordito — ORDITO command-line tool
@@ -9,7 +10,8 @@ const HELP = `ordito — ORDITO command-line tool
 Usage:
   ordito new --type <artifact_type> [--mode <mode>] [--owner <role>] [--charter <path>] [--id <id>] [--out <path>]
   ordito validate [--path <file_or_dir>]
-  ordito gate <g0|g1|g2|release|learning> --artifact <id> [--mode <mode>]
+  ordito gate <g0|g1|g2|release|learning> --artifact <id> [--path <artifact.json>] [--write] [--yes]
+  ordito eval <service_name> [--id <golden_set_id>]
   ordito export-from-jira --issue <KEY> [--out <path>]
   ordito --help
 
@@ -61,6 +63,9 @@ async function main(): Promise<void> {
         break;
       case "gate":
         await runGate(positional[0] || "", flags);
+        break;
+      case "eval":
+        await runEval(positional[0] || "", flags);
         break;
       case "export-from-jira":
         await exportFromJira(flags);

@@ -6,11 +6,15 @@ on:
     paths:
       - 'schemas/**'
       - '03-artifacts/**'
+      - '04-ai-service-mesh/registry.json'
+      - 'tools/ordito-cli/**'
   pull_request:
     branches: [main]
     paths:
       - 'schemas/**'
       - '03-artifacts/**'
+      - '04-ai-service-mesh/registry.json'
+      - 'tools/ordito-cli/**'
 
 jobs:
   validate-json-schemas:
@@ -46,6 +50,37 @@ jobs:
             echo "Validating: $example"
             ajv validate --spec=draft2020 -c ajv-formats -s schemas/artifact.schema.json -d "$example" --strict=false || exit 1
           done
+
+      - name: Validate AI service registry against schema
+        run: |
+          ajv validate --spec=draft2020 -c ajv-formats -s schemas/ai-service-registry.schema.json -d 04-ai-service-mesh/registry.json --strict=false
+
+  build-cli:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install CLI dependencies
+        working-directory: tools/ordito-cli
+        run: npm ci
+
+      - name: Build CLI
+        working-directory: tools/ordito-cli
+        run: npm run build
+
+      - name: Validate examples through CLI
+        working-directory: tools/ordito-cli
+        run: node dist/index.js validate
+
+      - name: Check eval readiness through CLI
+        working-directory: tools/ordito-cli
+        run: node dist/index.js eval intake-coach
 
   lint-markdown:
     runs-on: ubuntu-latest

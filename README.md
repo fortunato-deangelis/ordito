@@ -138,7 +138,7 @@ ordito/
 - [x] v1.2 — Principles, roles, rituals, 30/60/90 plan, unified swimlanes, 12 AI services (registry + governance), all examples
 - [x] v1.3 — Prompt templates for 7 core AI services + Jira integration guide
 - [x] v1.4 — Remaining 5 prompt templates + adversarial `consistency-checker`; antipattern catalog; schema v2 (lifecycle/gate split, mode, autonomy, blast_radius, prompt_version); methodology mappings (Scrum/SAFe/Shape Up/Kanban); tension modes (Overlay/Standard/Strict); CLI skeleton; eval framework; agent profiles; EU AI Act + NIST AI RMF mapping; Principle 7 reframed (substitution vs augmentation)
-- [ ] v1.5 — CLI v0.2 (`gate` writes back, `eval` runner); Linear and Notion integration; Jira ↔ JSON sync; reference harness for AI services
+- [ ] v1.5 — CLI v0.2 (`gate` writes back, offline `eval` readiness runner); Linear and Notion integration; Jira ↔ JSON sync; reference harness for AI services
 - [ ] v1.6 — Case studies from adopting teams; production-grown golden sets per service
 - [ ] v1.7 — Audit-pack exporter (CLI v0.4); deeper EU AI Act high-risk QMS templates; sub-processor / DPA registry fields
 

@@ -1,8 +1,11 @@
 import { promises as fs } from "node:fs";
+import { createRequire } from "node:module";
 import { dirname, resolve, join, extname } from "node:path";
 import { fileURLToPath } from "node:url";
-import Ajv2020 from "ajv/dist/2020.js";
-import addFormats from "ajv-formats";
+
+const require = createRequire(import.meta.url);
+const Ajv2020 = require("ajv/dist/2020.js").default;
+const addFormats = require("ajv-formats").default;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

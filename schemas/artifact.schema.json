@@ -12,6 +12,19 @@
     "objective",
     "last_reviewed_at"
   ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "artifact_type": { "const": "initiative_charter" }
+        },
+        "required": ["artifact_type"]
+      },
+      "then": {
+        "required": ["mode"]
+      }
+    }
+  ],
   "properties": {
     "artifact_id": {
       "type": "string",
@@ -185,6 +198,30 @@
       "items": {
         "type": "object",
         "required": ["timestamp", "decision", "rationale", "owner"],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "decision_type": { "const": "gate_outcome" }
+              },
+              "required": ["decision_type"]
+            },
+            "then": {
+              "required": ["gate_id"]
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "decision_type": { "const": "ai_override" }
+              },
+              "required": ["decision_type"]
+            },
+            "then": {
+              "required": ["ai_service_overridden"]
+            }
+          }
+        ],
         "properties": {
           "timestamp": {
             "type": "string",
@@ -219,7 +256,7 @@
       "description": "AI services that contributed to producing this artifact",
       "items": {
         "type": "object",
-        "required": ["service_name", "invoked_at"],
+        "required": ["service_name", "invoked_at", "model_used", "prompt_version", "autonomy_tier_at_invocation"],
         "properties": {
           "service_name": {
             "type": "string",

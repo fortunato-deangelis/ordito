@@ -1,6 +1,6 @@
 {
   "name": "@ordito/cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "ORDITO command-line tool — scaffold, validate, gate, export.",
   "type": "module",
   "bin": {

@@ -45,12 +45,11 @@ Field meanings:
 ## Running evals
 
 ```bash
-ordito eval intake-coach              # run all entries in golden-set.jsonl
-ordito eval intake-coach --id GS-007  # one entry
-ordito eval intake-coach --diff       # compare current prompt vs registry's last_prompt_update
+ordito eval intake-coach                 # check all entries in golden-set.jsonl
+ordito eval intake-coach --id GS-IC-001  # check one entry
 ```
 
-(CLI v0.2 will implement the runner. v0.1 ships the golden sets and rubrics.)
+CLI v0.2 implements offline readiness checks: prompt file exists, rubric exists, and golden-set entries contain the required fields. Provider-scored evals remain implementation-specific and will be added after the reference harness exists.
 
 ## Scoring rubric (per service)
 

@@ -5,6 +5,20 @@ All notable changes to ORDITO are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and ORDITO adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- `schemas/ai-service-registry.schema.json` — machine-readable contract for `04-ai-service-mesh/registry.json`
+- `ordito eval <service>` — offline readiness checker for prompt, rubric, and golden-set structure
+- CI job to build the CLI, validate examples through the CLI, validate the AI service registry, and check eval readiness
+
+### Changed
+
+- `ordito gate` can now append a `decision_log` entry directly to artifact JSON with `--write`
+- `schemas/artifact.schema.json` now requires `mode` on Initiative Charters and requires `model_used`, `prompt_version`, and `autonomy_tier_at_invocation` on AI service invocations
+- Example artifacts updated to satisfy the stricter schema contract
+
 ## [1.4.0] - 2026-05-04
 
 The "completare la promessa" release. Closes the v1.2/1.3 gaps (5 missing prompts, schema fragility), adds the AI-native upgrade (autonomy tier, eval framework, adversarial agent), introduces the methodology mappings that make the "wrapper" claim concrete, and lands the regulatory mapping the enterprise has been asking for.

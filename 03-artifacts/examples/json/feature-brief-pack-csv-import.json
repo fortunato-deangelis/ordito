@@ -70,13 +70,17 @@
       "service_name": "brief-builder",
       "invoked_at": "2026-03-10T09:00:00Z",
       "model_used": "claude-sonnet-4-6",
-      "human_reviewer": "product_lead"
+      "prompt_version": "1.2",
+      "human_reviewer": "product_lead",
+      "autonomy_tier_at_invocation": "HITL"
     },
     {
       "service_name": "research-synthesizer",
       "invoked_at": "2026-03-10T09:30:00Z",
       "model_used": "claude-sonnet-4-6",
-      "human_reviewer": "product_lead"
+      "prompt_version": "1.4",
+      "human_reviewer": "product_lead",
+      "autonomy_tier_at_invocation": "HITL"
     }
   ],
   "tags": ["enterprise", "csv-import", "core-mode", "q3-2026"]
