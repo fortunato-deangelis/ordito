@@ -1,7 +1,7 @@
 {
   "$schema": "https://ordito.dev/schemas/ai-service-registry.schema.json",
-  "version": "1.2",
-  "last_updated": "2026-04-26",
+  "version": "1.4",
+  "last_updated": "2026-05-04",
   "services": [
     {
       "name": "intake-coach",
@@ -15,7 +15,12 @@
       "retention_policy": "session-only",
       "output_visibility": "internal-team",
       "pii_risk": "low",
-      "prompt_file": "prompts/intake-coach.md"
+      "autonomy_tier": "HOTL",
+      "ai_act_risk": "limited",
+      "dpa_required": false,
+      "prompt_file": "prompts/intake-coach.md",
+      "prompt_version": "1.2",
+      "last_prompt_update": "2026-04-26"
     },
     {
       "name": "prioritization-copilot",
@@ -29,7 +34,12 @@
       "retention_policy": "session-only",
       "output_visibility": "internal-team",
       "pii_risk": "low",
-      "prompt_file": "prompts/prioritization-copilot.md"
+      "autonomy_tier": "HITL",
+      "ai_act_risk": "limited",
+      "dpa_required": false,
+      "prompt_file": "prompts/prioritization-copilot.md",
+      "prompt_version": "1.2",
+      "last_prompt_update": "2026-04-26"
     },
     {
       "name": "brief-builder",
@@ -43,7 +53,12 @@
       "retention_policy": "sprint",
       "output_visibility": "internal-team",
       "pii_risk": "medium",
-      "prompt_file": "prompts/brief-builder.md"
+      "autonomy_tier": "HITL",
+      "ai_act_risk": "limited",
+      "dpa_required": true,
+      "prompt_file": "prompts/brief-builder.md",
+      "prompt_version": "1.2",
+      "last_prompt_update": "2026-04-26"
     },
     {
       "name": "research-synthesizer",
@@ -57,7 +72,12 @@
       "retention_policy": "sprint",
       "output_visibility": "internal-team",
       "pii_risk": "high",
-      "prompt_file": "prompts/research-synthesizer.md"
+      "autonomy_tier": "HITL",
+      "ai_act_risk": "limited",
+      "dpa_required": true,
+      "prompt_file": "prompts/research-synthesizer.md",
+      "prompt_version": "1.4",
+      "last_prompt_update": "2026-05-04"
     },
     {
       "name": "design-critic",
@@ -71,7 +91,12 @@
       "retention_policy": "session-only",
       "output_visibility": "internal-team",
       "pii_risk": "low",
-      "prompt_file": "prompts/design-critic.md"
+      "autonomy_tier": "HITL",
+      "ai_act_risk": "limited",
+      "dpa_required": false,
+      "prompt_file": "prompts/design-critic.md",
+      "prompt_version": "1.2",
+      "last_prompt_update": "2026-04-26"
     },
     {
       "name": "solution-mapper",
@@ -85,7 +110,12 @@
       "retention_policy": "session-only",
       "output_visibility": "internal-team",
       "pii_risk": "low",
-      "prompt_file": "prompts/solution-mapper.md"
+      "autonomy_tier": "HITL",
+      "ai_act_risk": "limited",
+      "dpa_required": false,
+      "prompt_file": "prompts/solution-mapper.md",
+      "prompt_version": "1.4",
+      "last_prompt_update": "2026-05-04"
     },
     {
       "name": "code-review-agent",
@@ -99,7 +129,12 @@
       "retention_policy": "session-only",
       "output_visibility": "internal-team",
       "pii_risk": "medium",
-      "prompt_file": "prompts/code-review-agent.md"
+      "autonomy_tier": "HOTL",
+      "ai_act_risk": "limited",
+      "dpa_required": true,
+      "prompt_file": "prompts/code-review-agent.md",
+      "prompt_version": "1.2",
+      "last_prompt_update": "2026-04-26"
     },
     {
       "name": "test-case-generator",
@@ -113,7 +148,12 @@
       "retention_policy": "release-cycle",
       "output_visibility": "internal-team",
       "pii_risk": "low",
-      "prompt_file": "prompts/test-case-generator.md"
+      "autonomy_tier": "HOTL",
+      "ai_act_risk": "limited",
+      "dpa_required": false,
+      "prompt_file": "prompts/test-case-generator.md",
+      "prompt_version": "1.2",
+      "last_prompt_update": "2026-04-26"
     },
     {
       "name": "release-verifier",
@@ -127,7 +167,12 @@
       "retention_policy": "release-cycle",
       "output_visibility": "internal-team",
       "pii_risk": "low",
-      "prompt_file": "prompts/release-verifier.md"
+      "autonomy_tier": "HITL",
+      "ai_act_risk": "limited",
+      "dpa_required": false,
+      "prompt_file": "prompts/release-verifier.md",
+      "prompt_version": "1.2",
+      "last_prompt_update": "2026-04-26"
     },
     {
       "name": "dashboard-narrator",
@@ -141,7 +186,12 @@
       "retention_policy": "90-days",
       "output_visibility": "internal-team",
       "pii_risk": "medium",
-      "prompt_file": "prompts/dashboard-narrator.md"
+      "autonomy_tier": "HITL",
+      "ai_act_risk": "limited",
+      "dpa_required": true,
+      "prompt_file": "prompts/dashboard-narrator.md",
+      "prompt_version": "1.4",
+      "last_prompt_update": "2026-05-04"
     },
     {
       "name": "dependency-mapper",
@@ -155,7 +205,12 @@
       "retention_policy": "sprint",
       "output_visibility": "internal-team",
       "pii_risk": "low",
-      "prompt_file": "prompts/dependency-mapper.md"
+      "autonomy_tier": "HITL",
+      "ai_act_risk": "limited",
+      "dpa_required": false,
+      "prompt_file": "prompts/dependency-mapper.md",
+      "prompt_version": "1.4",
+      "last_prompt_update": "2026-05-04"
     },
     {
       "name": "compliance-checker",
@@ -169,7 +224,31 @@
       "retention_policy": "audit-trail",
       "output_visibility": "compliance-team",
       "pii_risk": "high",
-      "prompt_file": "prompts/compliance-checker.md"
+      "autonomy_tier": "HITL",
+      "ai_act_risk": "high",
+      "dpa_required": true,
+      "prompt_file": "prompts/compliance-checker.md",
+      "prompt_version": "1.4",
+      "last_prompt_update": "2026-05-04"
+    },
+    {
+      "name": "consistency-checker",
+      "canonical_id": "consistency-checker",
+      "description": "Adversarial cross-artifact check at gates. Surfaces contradictions, dropped constraints, KPI coverage gaps, hypothesis gaps, and mode drift across the artifact chain.",
+      "invocation_phase": "gate-time",
+      "input_artifacts": ["initiative_charter", "feature_request", "feature_brief_pack", "design_spec", "technical_design_note", "release_checklist"],
+      "output_artifacts": [],
+      "recommended_model": "claude-opus-4-7",
+      "alternative_model": "claude-sonnet-4-6",
+      "retention_policy": "release-cycle",
+      "output_visibility": "internal-team",
+      "pii_risk": "low",
+      "autonomy_tier": "HITL",
+      "ai_act_risk": "limited",
+      "dpa_required": false,
+      "prompt_file": "prompts/consistency-checker.md",
+      "prompt_version": "1.4",
+      "last_prompt_update": "2026-05-04"
     }
   ],
   "retention_policy_definitions": {
@@ -182,5 +261,15 @@
   "output_visibility_definitions": {
     "internal-team": "Visible only to product team members on the initiative.",
     "compliance-team": "Visible to product team and compliance/legal function."
+  },
+  "autonomy_tier_definitions": {
+    "HITL": "Human-in-the-loop. Every output must be reviewed by a named human before incorporation. Required for high-PII, judgment-structuring, and gate-driving services.",
+    "HOTL": "Human-on-the-loop. Parameters and guardrails set up front; outputs reviewed by sample (e.g. 10% audit) and on exception. Suitable for high-volume, low-risk, low-stakes structuring tasks.",
+    "HOOTL": "Human-out-of-the-loop. Autonomous within strict guardrails; ex-post audit only. Reserved for low-risk, fully-reversible tasks. No service in v1.4 uses this tier."
+  },
+  "ai_act_risk_definitions": {
+    "limited": "EU AI Act limited-risk system: transparency obligations apply. Default for assistive AI in product workflows.",
+    "high": "EU AI Act high-risk system: full Article 14 oversight, conformity assessment, post-market monitoring required. Currently applies to compliance-checker only.",
+    "minimal": "EU AI Act minimal-risk: no obligations. Not used for ORDITO services."
   }
 }

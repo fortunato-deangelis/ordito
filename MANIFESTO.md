@@ -38,9 +38,14 @@ An MVP isn't managed like a legacy evolution. A hotfix isn't managed like a stra
 
 Every initiative closes with an Impact Review. Not to produce another document, but to verify whether the expected value materialized. Without this step, the system delivers but doesn't learn — and becomes a machine that produces useless features at increasing speed. A loom without fabric inspection produces defects faster.
 
-### 7. AI goes where there is repetition, not where there is judgment
+### 7. AI structures judgment, it does not replace it
 
-Fragmented briefs, test cases derivable from AC, interview synthesis, handoff completeness checks: here AI accelerates by 10x and frees human time. Scope decisions, architecture trade-offs, customer prioritization: here AI can inform, never decide. Confusing the two domains is the fastest way to cause disasters with AI.
+Two domains where AI is decisive — and they are not the same:
+
+- **Repetition** — fragmented briefs, test cases derivable from ACs, interview synthesis, handoff completeness checks. Here AI accelerates by 10x by removing toil. Pure substitution.
+- **Judgment-structuring** — design critique, prioritization trade-offs, dependency mapping, compliance flagging. Here AI does not decide; it surfaces options, exposes inconsistencies, makes implicit constraints explicit, so the human decides better and faster. Augmentation, not substitution.
+
+What AI must never do: decide scope, choose between architectural trade-offs, prioritize customers, sign off on releases. These are accountable decisions — they require a name, a role, and consequences. Confusing acceleration with delegation is the fastest way to cause disasters with AI.
 
 ### 8. Artifact contracts are machine-readable
 
@@ -62,6 +67,7 @@ ORDITO is a public repository. Every evolution proposal is a contractual artifac
 - **Not a tool.** It's a logical model. You implement it with the tools you already have (Jira, Figma, GitHub, Notion, any LLM).
 - **Not a guarantee.** A framework doesn't make good products. Competent people with a good framework make good products more often.
 - **Not "AI-first" in the empty sense.** AI is a component, not the hero. The framework works even if you disable half the AI services — slower, but it works. The warp holds even if the shuttle is slow.
+- **Not a Human-in-the-loop fig leaf.** "A human reviewed it" is a control only if the human had the time, the context, and the authority to dissent. ORDITO requires *evidence* of review — `human_reviewer` plus `decision_log` plus override metrics — not just a checkbox. Where verification is unrealistic (high-volume, low-risk, irreversible cost), we use **human-on-the-loop** with sampled audit, not theatrical approval. See `autonomy_tier` per service in the AI service registry.
 
 ---
 
@@ -83,5 +89,5 @@ If they don't resonate, thank you for reading this far. Not every team needs thi
 
 ---
 
-*Manifesto version: 1.1*
+*Manifesto version: 1.2*
 *Last updated: see CHANGELOG.md*

@@ -76,15 +76,18 @@ This document expands the 10 Manifesto principles into operational rules. For ea
 
 ---
 
-### Principle 7 — AI goes where there is repetition, not where there is judgment
+### Principle 7 — AI structures judgment, it does not replace it
 
-**Operational rule**: AI services are assigned to specific phases with specific inputs and outputs (see `04-ai-service-mesh/registry.json`). Using an AI service outside its designated phase requires documentation.
+**Operational rule**: AI services operate in two distinct modes — *substitution* (toil removal: brief structuring, test derivation, synthesis) and *augmentation* (judgment-structuring: critique, trade-off exposure, inconsistency flagging). Both modes are tracked in `ai_services_used`. Decisions are always human; AI output is evidence, never authority.
 
 **Conformance criteria**:
 - `ai_services_used[].service_name` must be a canonical name from the registry
 - Service invocation must correspond to the service's `invocation_phase`
+- For services in *augmentation* mode (`autonomy_tier: HITL`), every output that influences a gate decision must have a `human_reviewer` and a `decision_log` entry with rationale
 
-**Antipattern**: Using an LLM ad hoc for scope decisions or architectural trade-offs without logging. This makes the AI's influence invisible — exactly where it is most dangerous.
+**Antipattern 1**: Using an LLM ad hoc for scope decisions or architectural trade-offs without logging. This makes the AI's influence invisible — exactly where it is most dangerous.
+
+**Antipattern 2**: Treating "human reviewed" as a checkbox. If the reviewer had no time, no context, or no authority to dissent, the review is theater. The override metric exists to surface this.
 
 ---
 

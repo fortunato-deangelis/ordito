@@ -7,7 +7,7 @@
 > **Open-source operating system for product teams: integrate AI into workflows without losing human accountability.**
 
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Status: v1.2](https://img.shields.io/badge/Status-v1.2-green.svg)](https://github.com/fortunato-deangelis/ordito/releases)
+[![Status: v1.4](https://img.shields.io/badge/Status-v1.4-green.svg)](https://github.com/fortunato-deangelis/ordito/releases)
 [![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![GitHub Discussions](https://img.shields.io/badge/Discussions-Open-purple.svg)](https://github.com/fortunato-deangelis/ordito/discussions)
 
@@ -107,15 +107,16 @@ Evolution proposals go through RFCs (the same model the framework proposes — c
 ```
 ordito/
 ├── assets/brand/          # Logo and social preview assets
-├── 01-framework/          # Principles, gates, metrics, policies
-├── 02-operating-model/    # Roles, modes, rituals, integrations
+├── 01-framework/          # Principles, gates, metrics, regulatory mapping
+├── 02-operating-model/    # Roles, modes, rituals, tension modes
 ├── 03-artifacts/          # Schemas, templates, compiled examples
-├── 04-ai-service-mesh/    # 12 AI services with prompts and governance
+├── 04-ai-service-mesh/    # 13 AI services with prompts, evals, governance, profiles
 ├── 05-playbooks/          # Variants for Core / Explore / Scale / Hotfix
 ├── 06-workflows/          # Mermaid diagrams of processes and swimlanes
-├── 07-adoption/           # Onboarding, antipatterns, change management
-├── 08-integrations/       # Tool-specific integration guides (Jira, Linear, Notion)
-└── schemas/               # Machine-readable JSON Schemas
+├── 07-adoption/           # Onboarding plan, antipatterns, change management
+├── 08-integrations/       # Tool-specific integration guides + methodology mappings
+├── schemas/               # Machine-readable JSON Schemas
+└── tools/ordito-cli/      # CLI: scaffold, validate, gate, export
 ```
 
 ## Brand assets
@@ -136,9 +137,10 @@ ordito/
 - [x] v1.1 — Manifesto, schema, swimlane Core, end-to-end example
 - [x] v1.2 — Principles, roles, rituals, 30/60/90 plan, unified swimlanes, 12 AI services (registry + governance), all examples
 - [x] v1.3 — Prompt templates for 7 core AI services + Jira integration guide
-- [ ] v1.4 — Remaining 5 prompt templates (research-synthesizer, solution-mapper, dashboard-narrator, dependency-mapper, compliance-checker)
-- [ ] v1.5 — Plugin pack for Linear and Notion + reference harness for AI services
-- [ ] v1.6 — Case studies from adopting teams
+- [x] v1.4 — Remaining 5 prompt templates + adversarial `consistency-checker`; antipattern catalog; schema v2 (lifecycle/gate split, mode, autonomy, blast_radius, prompt_version); methodology mappings (Scrum/SAFe/Shape Up/Kanban); tension modes (Overlay/Standard/Strict); CLI skeleton; eval framework; agent profiles; EU AI Act + NIST AI RMF mapping; Principle 7 reframed (substitution vs augmentation)
+- [ ] v1.5 — CLI v0.2 (`gate` writes back, `eval` runner); Linear and Notion integration; Jira ↔ JSON sync; reference harness for AI services
+- [ ] v1.6 — Case studies from adopting teams; production-grown golden sets per service
+- [ ] v1.7 — Audit-pack exporter (CLI v0.4); deeper EU AI Act high-risk QMS templates; sub-processor / DPA registry fields
 
 ## License
 

@@ -5,6 +5,89 @@ All notable changes to ORDITO are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and ORDITO adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-05-04
+
+The "completare la promessa" release. Closes the v1.2/1.3 gaps (5 missing prompts, schema fragility), adds the AI-native upgrade (autonomy tier, eval framework, adversarial agent), introduces the methodology mappings that make the "wrapper" claim concrete, and lands the regulatory mapping the enterprise has been asking for.
+
+### Added
+
+**AI Service Mesh**
+- `04-ai-service-mesh/prompts/research-synthesizer.md` — full prompt template (v1.4)
+- `04-ai-service-mesh/prompts/solution-mapper.md` — full prompt template (v1.4)
+- `04-ai-service-mesh/prompts/dashboard-narrator.md` — full prompt template (v1.4)
+- `04-ai-service-mesh/prompts/dependency-mapper.md` — full prompt template (v1.4)
+- `04-ai-service-mesh/prompts/compliance-checker.md` — full prompt template (v1.4)
+- `04-ai-service-mesh/prompts/consistency-checker.md` — new adversarial service prompt (v1.4)
+- `04-ai-service-mesh/consistency-checker.md` — new service description: cross-artifact adversarial check at gates, breaking the compounding-error chain
+- `04-ai-service-mesh/evals/` — evaluation framework: golden-set format, rubric, runner spec; starter set + rubric for `intake-coach`
+- `04-ai-service-mesh/profiles/` — agent profiles concept (experimental); first profile `discovery-agent` composes brief-builder + research-synthesizer + intake-coach
+- `04-ai-service-mesh/registry.json` — bumped to v1.4: added `autonomy_tier` (HITL / HOTL / HOOTL), `ai_act_risk` (limited / high / minimal), `dpa_required`, `prompt_version`, `last_prompt_update` per service; new `consistency-checker` service entry; tier definitions
+
+**Framework**
+- `01-framework/regulatory-mapping.md` — EU AI Act (Article 14 + Articles 9, 10, 12, 13, 15, 17) and NIST AI RMF (Govern / Map / Measure / Manage) mapping to ORDITO controls
+- `07-adoption/antipatterns.md` — catalog of 15 antipatterns across process / AI service / adoption with detect+recover playbook
+- `02-operating-model/tension-modes.md` — Overlay / Standard / Strict orthogonal axis to Core/Explore/Scale modes
+
+**Methodology mappings**
+- `08-integrations/methodologies/README.md` — index + adoption guidance
+- `08-integrations/methodologies/scrum.md` — role/artifact/gate/ritual mapping for Scrum
+- `08-integrations/methodologies/safe.md` — Solution Train / ART / Team layering for SAFe
+- `08-integrations/methodologies/shape-up.md` — Overlay-only mapping with explicit tension between Brief Pack ACs and Shape Up's appetite
+- `08-integrations/methodologies/kanban.md` — column/state mapping; gates as transitions, not events
+
+**Schemas**
+- `schemas/ai-invocation-log.schema.json` — new schema for HOTL/HOOTL operational logging (cost, latency, parse validity, override decision)
+
+**Tooling**
+- `tools/ordito-cli/` — CLI skeleton (TypeScript, Node 20+, only `ajv` runtime dep): `new` and `validate` functional; `gate` interactive; `export-from-jira` declared as stub for v0.3
+
+### Changed
+
+**Manifesto**
+- Principle 7 reframed: "AI structures judgment, it does not replace it" — distinguishes substitution (toil removal) from augmentation (judgment-structuring)
+- New caveat: ORDITO is "Not a Human-in-the-loop fig leaf" — addresses the 2026 critique that HITL is illusory unless review evidence is captured
+- Manifesto version bumped 1.1 → 1.2
+
+**Schema (`schemas/artifact.schema.json`)**
+- Added `mode` field (core/explore/scale/hotfix) — Principle 5 was previously only in playbooks
+- Added `lifecycle_state` and `gate_state` — orthogonal split that deprecates `status` (kept for v1.x backward compatibility; will be removed in v2.0)
+- Added `tension_mode` (overlay/standard/strict) for the new tension modes axis
+- Added `reversibility_class` and `blast_radius` for AI-native risk dimensions per `01-framework/regulatory-mapping.md` MAP 5
+- Added `prompt_version` in `ai_services_used[]` — required from v1.4 to keep audit trail intact across prompt updates (see AP-011)
+- Added `review_evidence` in `ai_services_used[]` — discourages AP-008 (AI bypasses the actor) by capturing what the human changed
+- Added `autonomy_tier_at_invocation` in `ai_services_used[]`
+- Added `decision_type` and `gate_id` in `decision_log[]` — enables override metrics by category and by gate
+- Added `minLength: 30` on `decision_log[].rationale` — discourages AP-002 (Decision_log as box-ticking)
+- Added `maxItems: 10` on `acceptance_criteria` — aligns schema with brief-builder prompt's existing constraint
+- Added `consistency-checker` to the `ai_services_used[].service_name` enum
+
+**Governance (`04-ai-service-mesh/governance.md`)**
+- New section: Autonomy tiers (HITL / HOTL / HOOTL) with promotion/demotion path
+- New section: EU AI Act mapping with risk class implications
+- New section: Drift detection — quarterly + on-model-change rerun of evals
+- Audit log requirements now include `prompt_version` (required from v1.4) and reference `ai-invocation-log.schema.json` for HOTL/HOOTL services
+- Multi-vendor: clarified that canonical IDs are the ORDITO reference; non-Anthropic providers map via `model_provider` field or RFC
+
+**Principles (`01-framework/principles.md`)**
+- Principle 7 operational expansion realigned with revised manifesto (substitution vs augmentation)
+- New antipattern under Principle 7: "Treating 'human reviewed' as a checkbox" — codifies AP-003
+
+**README**
+- Status bumped 1.2 → 1.4
+- Repo structure updated (CLI under `tools/`, methodologies under `08-integrations/methodologies/`)
+- Roadmap updated: v1.4 marked complete; v1.5 / v1.6 / v1.7 expanded with concrete deliverables
+- Service count: 12 → 13 (added consistency-checker)
+
+**Prompts README (`04-ai-service-mesh/prompts/README.md`)**
+- All 12 services now show "Complete"; consistency-checker added as 13th entry; "Coming v1.3" labels removed (the doc had drifted from reality)
+
+### Notes
+
+- **Backward compatibility**: existing artifacts under `03-artifacts/examples/json/` continue to validate (the `status` field is retained alongside the new `lifecycle_state` / `gate_state`). Migration to the new fields is recommended but not required until v2.0.
+- **Eval framework**: only `intake-coach` ships with a starter golden set. Other services have rubric placeholders pending v1.6 case-study contributions.
+- **CLI**: v0.1 covers the highest-value flows (scaffold + validate). The remaining commands ship as documented stubs to keep the contract stable for v0.2.
+- **Regulatory mapping**: this is a documentation aid, not legal advice. AI Act high-risk classification requires a per-deployment QMS per Article 17.
+
 ## [1.2.0] - 2026-04-26
 
 ### Added
@@ -124,4 +207,6 @@ Internal framework history, kept for reference.
 - **Ordito v0.2** — contractual artifacts
 - **Ordito v0.1** — initial principles and gates
 
+[1.4.0]: https://github.com/fortunato-deangelis/ordito/releases/tag/v1.4.0
+[1.2.0]: https://github.com/fortunato-deangelis/ordito/releases/tag/v1.2.0
 [1.1.0]: https://github.com/fortunato-deangelis/ordito/releases/tag/v1.1.0

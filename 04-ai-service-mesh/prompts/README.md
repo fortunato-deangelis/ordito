@@ -12,18 +12,19 @@ Each template includes:
 
 | Service | Prompt file | Status |
 |---|---|---|
-| intake-coach | [intake-coach.md](intake-coach.md) | Complete |
-| prioritization-copilot | [prioritization-copilot.md](prioritization-copilot.md) | Complete |
-| brief-builder | [brief-builder.md](brief-builder.md) | Complete |
-| design-critic | [design-critic.md](design-critic.md) | Complete |
-| code-review-agent | [code-review-agent.md](code-review-agent.md) | Complete |
-| test-case-generator | [test-case-generator.md](test-case-generator.md) | Complete |
-| release-verifier | [release-verifier.md](release-verifier.md) | Complete |
-| research-synthesizer | research-synthesizer.md | Coming v1.3 |
-| solution-mapper | solution-mapper.md | Coming v1.3 |
-| dashboard-narrator | dashboard-narrator.md | Coming v1.3 |
-| dependency-mapper | dependency-mapper.md | Coming v1.3 |
-| compliance-checker | compliance-checker.md | Coming v1.3 |
+| intake-coach | [intake-coach.md](intake-coach.md) | Complete (v1.2) |
+| prioritization-copilot | [prioritization-copilot.md](prioritization-copilot.md) | Complete (v1.2) |
+| brief-builder | [brief-builder.md](brief-builder.md) | Complete (v1.2) |
+| design-critic | [design-critic.md](design-critic.md) | Complete (v1.2) |
+| code-review-agent | [code-review-agent.md](code-review-agent.md) | Complete (v1.2) |
+| test-case-generator | [test-case-generator.md](test-case-generator.md) | Complete (v1.2) |
+| release-verifier | [release-verifier.md](release-verifier.md) | Complete (v1.2) |
+| research-synthesizer | [research-synthesizer.md](research-synthesizer.md) | Complete (v1.4) |
+| solution-mapper | [solution-mapper.md](solution-mapper.md) | Complete (v1.4) |
+| dashboard-narrator | [dashboard-narrator.md](dashboard-narrator.md) | Complete (v1.4) |
+| dependency-mapper | [dependency-mapper.md](dependency-mapper.md) | Complete (v1.4) |
+| compliance-checker | [compliance-checker.md](compliance-checker.md) | Complete (v1.4) |
+| consistency-checker | [consistency-checker.md](consistency-checker.md) | Complete (v1.4 — adversarial) |
 
 ## Update process
 

@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ordito.dev/schemas/ai-invocation-log.schema.json",
+  "title": "ORDITO AI Invocation Log Entry",
+  "description": "Operational log entry for a single invocation of an ORDITO AI service. Captures cost, latency, prompt version, model version, parse success, override decision, and reviewer evidence. Aggregated entries feed the override-rate, drift-detection, and cost dashboards. Optional in v1.x; recommended for any team running AI services at >100 invocations/quarter. v2.0 will require it for services with `autonomy_tier: HOTL` and `HOOTL` (their accountability *is* the log).",
+  "type": "object",
+  "required": [
+    "invocation_id",
+    "service_name",
+    "invoked_at",
+    "artifact_id",
+    "model_used",
+    "prompt_version",
+    "outcome"
+  ],
+  "properties": {
+    "invocation_id": {
+      "type": "string",
+      "description": "Unique identifier of the invocation",
+      "pattern": "^INV-\\d{4}-\\d+$",
+      "examples": ["INV-2026-104822"]
+    },
+    "service_name": {
+      "type": "string",
+      "enum": [
+        "intake-coach",
+        "prioritization-copilot",
+        "brief-builder",
+        "research-synthesizer",
+        "design-critic",
+        "solution-mapper",
+        "code-review-agent",
+        "test-case-generator",
+        "release-verifier",
+        "dashboard-narrator",
+        "dependency-mapper",
+        "compliance-checker",
+        "consistency-checker"
+      ]
+    },
+    "invoked_at": { "type": "string", "format": "date-time" },
+    "completed_at": { "type": "string", "format": "date-time" },
+    "artifact_id": {
+      "type": "string",
+      "description": "Artifact this invocation was producing or critiquing.",
+      "pattern": "^[A-Z]+-\\d{4}-\\d{3,}$"
+    },
+    "initiative_id": {
+      "type": "string",
+      "pattern": "^INIT-\\d{4}-\\d{3,}$"
+    },
+    "gate_id": {
+      "type": "string",
+      "enum": ["G0", "G1", "G2", "release", "learning", "n/a"]
+    },
+    "model_used": { "type": "string", "description": "Canonical model id, e.g. claude-sonnet-4-6" },
+    "model_provider": {
+      "type": "string",
+      "enum": ["anthropic", "anthropic-bedrock", "anthropic-vertex", "openai", "azure-openai", "self-hosted", "other"]
+    },
+    "prompt_version": { "type": "string", "pattern": "^\\d+\\.\\d+(\\.\\d+)?$" },
+    "tokens_in": { "type": "integer", "minimum": 0 },
+    "tokens_out": { "type": "integer", "minimum": 0 },
+    "cost_usd": { "type": "number", "minimum": 0, "description": "Computed cost in USD. Omit if pricing is unstable; aggregate offline." },
+    "latency_ms": { "type": "integer", "minimum": 0 },
+    "outcome": {
+      "type": "string",
+      "enum": ["success", "parse_error", "validation_error", "model_error", "rate_limited", "user_aborted"]
+    },
+    "parse_validity": {
+      "type": "boolean",
+      "description": "Did the output parse against the expected schema/template?"
+    },
+    "human_reviewer": {
+      "type": "string",
+      "description": "Role identifier of the reviewer for HITL services. Empty for HOTL sampled audits where this invocation was not sampled."
+    },
+    "review_decision": {
+      "type": "string",
+      "enum": ["accepted", "accepted_with_edits", "overridden", "discarded", "not_reviewed_sampled_out"]
+    },
+    "review_evidence": {
+      "type": "string",
+      "description": "Brief description of what changed between AI output and final artifact, if any."
+    },
+    "override_categories": {
+      "type": "array",
+      "description": "Tags that classify the type of override, used for prompt tuning signals.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "factual_error",
+          "scope_creep",
+          "missing_context",
+          "tone_mismatch",
+          "schema_violation",
+          "judgment_disagreement",
+          "redundant_with_human_input",
+          "other"
+        ]
+      }
+    },
+    "autonomy_tier_at_invocation": {
+      "type": "string",
+      "enum": ["HITL", "HOTL", "HOOTL"]
+    },
+    "pii_handling": {
+      "type": "object",
+      "properties": {
+        "pii_risk_at_invocation": { "type": "string", "enum": ["low", "medium", "high"] },
+        "pseudonymization_applied": { "type": "boolean" },
+        "consent_reference": { "type": "string", "description": "If high PII risk, reference to the consent / DPA record." }
+      }
+    }
+  }
+}

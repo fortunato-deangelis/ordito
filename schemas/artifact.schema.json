@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://ordito.dev/schemas/artifact.schema.json",
   "title": "ORDITO Contractual Artifact",
-  "description": "Common logical schema for every ORDITO artifact. Every artifact must conform to this schema, regardless of the tool that hosts it (Jira, Notion, file system, knowledge base). This schema is the regularity of the warp: the minimum fields that allow the weft to pass without ambiguity.",
+  "description": "Common logical schema for every ORDITO artifact. Every artifact must conform to this schema, regardless of the tool that hosts it (Jira, Notion, file system, knowledge base). This schema is the regularity of the warp: the minimum fields that allow the weft to pass without ambiguity. Schema v1.4: introduces lifecycle_state and gate_state as separable replacements for the combined `status`; adds `mode`, `reversibility_class`, `blast_radius`, `prompt_version` (in ai_services_used), and `decision_type`/`gate_id` (in decision_log).",
   "type": "object",
   "required": [
     "artifact_id",
@@ -49,8 +49,19 @@
         "founder"
       ]
     },
+    "mode": {
+      "type": "string",
+      "enum": ["core", "explore", "scale", "hotfix"],
+      "description": "Operating mode for the initiative this artifact belongs to. Required at the Initiative Charter level (Principle 5). Optional on downstream artifacts but recommended for traceability — mode drift is an antipattern (AP-004)."
+    },
+    "tension_mode": {
+      "type": "string",
+      "enum": ["overlay", "standard", "strict"],
+      "description": "Cross-cutting tension level orthogonal to mode. 'overlay' = schema + override log only, no new gates/rituals; 'standard' = full gates and rituals as documented; 'strict' = adds adversarial check on every gate, mandatory consistency-checker. Defaults to 'standard' if absent."
+    },
     "status": {
       "type": "string",
+      "description": "DEPRECATED in favor of lifecycle_state + gate_state (kept for backward compatibility through v1.x). Mixes lifecycle and gate-readiness which are orthogonal.",
       "enum": [
         "draft",
         "in_review",
@@ -64,6 +75,32 @@
         "in_progress",
         "final"
       ]
+    },
+    "lifecycle_state": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "in_review",
+        "in_progress",
+        "approved",
+        "rejected",
+        "archived",
+        "final"
+      ],
+      "description": "Lifecycle of the artifact independent of gate readiness. Optional in v1.x; will become required in v2.0 when `status` is removed."
+    },
+    "gate_state": {
+      "type": "string",
+      "enum": [
+        "not_applicable",
+        "waiting",
+        "ready_for_g0",
+        "ready_for_g1",
+        "ready_for_g2",
+        "ready_for_release",
+        "ready_for_learning"
+      ],
+      "description": "Gate readiness independent of lifecycle. Optional in v1.x; will become required in v2.0 when `status` is removed."
     },
     "gate_stage": {
       "type": "string",
@@ -92,6 +129,8 @@
     },
     "acceptance_criteria": {
       "type": "array",
+      "maxItems": 10,
+      "description": "At most 10 ACs at the brief level. More than 10 signals scope that needs splitting (see brief-builder prompt).",
       "items": {
         "type": "object",
         "required": ["id", "given", "when", "then"],
@@ -106,6 +145,16 @@
     "risk_band": {
       "type": "string",
       "enum": ["low", "medium", "high", "critical"]
+    },
+    "reversibility_class": {
+      "type": "string",
+      "enum": ["immediate", "hours", "days", "irreversible"],
+      "description": "How quickly the change can be undone if it goes wrong. Drives the level of pre-release verification and rollout caution."
+    },
+    "blast_radius": {
+      "type": "string",
+      "enum": ["single_user", "team", "org", "public"],
+      "description": "Who is affected if the change fails. Combined with reversibility_class, drives rollout tier (dark/beta/full)."
     },
     "telemetry_plan": {
       "type": "object",
@@ -143,7 +192,17 @@
             "description": "ISO 8601 full timestamp, e.g. 2026-03-08T10:00:00Z"
           },
           "decision": { "type": "string" },
-          "rationale": { "type": "string" },
+          "decision_type": {
+            "type": "string",
+            "enum": ["gate_outcome", "scope_change", "ai_override", "mode_change", "schedule_change", "other"],
+            "description": "Category of decision — enables override-rate metrics per type."
+          },
+          "gate_id": {
+            "type": "string",
+            "enum": ["G0", "G1", "G2", "release", "learning"],
+            "description": "Gate at which the decision was taken, if applicable. Required when decision_type is gate_outcome."
+          },
+          "rationale": { "type": "string", "minLength": 30, "description": "Must explain *why*, referencing constraints or KPIs by name. Length floor exists to discourage box-ticking (AP-002)." },
           "owner": {
             "type": "string",
             "description": "Role identifier, e.g. product_lead (not handle @product.lead)"
@@ -176,7 +235,8 @@
               "release-verifier",
               "dashboard-narrator",
               "dependency-mapper",
-              "compliance-checker"
+              "compliance-checker",
+              "consistency-checker"
             ]
           },
           "invoked_at": { "type": "string", "format": "date-time" },
@@ -184,7 +244,21 @@
             "type": "string",
             "description": "Model identifier in canonical form, e.g. claude-sonnet-4-6"
           },
-          "human_reviewer": { "type": "string" }
+          "prompt_version": {
+            "type": "string",
+            "description": "Version of the prompt template used (matches registry.json prompt_version). Required after v1.4 — without it, audit trail is bucked when prompts evolve (AP-011).",
+            "pattern": "^\\d+\\.\\d+(\\.\\d+)?$"
+          },
+          "human_reviewer": { "type": "string" },
+          "review_evidence": {
+            "type": "string",
+            "description": "Optional one-line evidence that real review happened (e.g. 'edited 3 ACs, removed 1 risk, added dependency on team X'). If empty on a HITL invocation, AP-008 applies."
+          },
+          "autonomy_tier_at_invocation": {
+            "type": "string",
+            "enum": ["HITL", "HOTL", "HOOTL"],
+            "description": "Autonomy tier under which the service was invoked. Should match the registry; mismatch is a finding for ORDITO Retrospective."
+          }
         }
       }
     },
